@@ -3,6 +3,7 @@ package com.log.resourse;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.Optional;
 
 import com.log.exception.BadRequestException;
 import com.log.model.LogSearch;
@@ -22,12 +23,12 @@ public class LogReaderController {
     private LogReaderService logReaderService;
     
     @GetMapping("/search")
-    public List<LogResponse> searchLog(@RequestParam(name = "type", defaultValue = "ALL") String type,
-                                       @RequestParam(value = "startTime", required = false) String startTime,
-                                       @RequestParam(value = "endTime", required = false) String endTime) {
+    public List<LogResponse> searchLog(@RequestParam(name = "type", required = false) Optional<String> type,
+                                       @RequestParam(value = "startTime", required = false) Optional<String> startTime,
+                                       @RequestParam(value = "endTime", required = false) Optional<String> endTime) {
         try {
             LogSearch logSearch = LogSearch.builder()
-                    .type(LogType.valueOf(type))
+                    .type(type.map(LogType::valueOf))
                     .startTime(DateFormatter.convertToDate(startTime))
                     .endTime(DateFormatter.convertToDate(endTime).orElse(LocalDateTime.now()))
                     .build();

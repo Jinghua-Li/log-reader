@@ -7,9 +7,9 @@ import java.util.Optional;
 
 public class DateFormatter {
     
-    public static Optional<LocalDateTime> convertToDate(String dateStr) throws
+    public static Optional<LocalDateTime> convertToDate(Optional<String> dateStr) throws
             DateTimeParseException {
-        return Optional.ofNullable(dateStr)
+        return dateStr
                 .map(time -> LocalDateTime.parse(time, DateTimeFormatter.ofPattern(Constants.DATE_FORMATTER)));
     }
 }

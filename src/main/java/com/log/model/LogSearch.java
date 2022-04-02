@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LogSearch {
-    private LogType type;
+    private Optional<LogType> type;
     private Optional<LocalDateTime> startTime;
     private LocalDateTime endTime;
 }

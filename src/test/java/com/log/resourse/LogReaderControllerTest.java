@@ -55,7 +55,7 @@ class LogReaderControllerTest extends ControllerBaseTest {
                 .andExpect(content().json(toJson(Collections.singletonList(logResponse))));
         
         LogSearch logSearch = logSearchArgumentCaptor.getValue();
-        assertEquals(LogType.ERROR, logSearch.getType());
+        assertEquals(Optional.of(LogType.ERROR), logSearch.getType());
         assertFalse(logSearch.getStartTime().isPresent());
         assertTrue(LocalDateTime.now().isAfter(logSearch.getEndTime()));
     }
@@ -74,9 +74,9 @@ class LogReaderControllerTest extends ControllerBaseTest {
                 .andExpect(content().json(toJson(Collections.singletonList(logResponse))));
         
         LogSearch logSearch = logSearchArgumentCaptor.getValue();
-        assertEquals(LogType.ALL, logSearch.getType());
-        assertEquals(DateFormatter.convertToDate(startDateStr), logSearch.getStartTime());
-        assertEquals(DateFormatter.convertToDate(endDateStr), Optional.of(logSearch.getEndTime()));
+        assertEquals(Optional.empty(), logSearch.getType());
+        assertEquals(DateFormatter.convertToDate(Optional.of(startDateStr)), logSearch.getStartTime());
+        assertEquals(DateFormatter.convertToDate(Optional.of(endDateStr)), Optional.of(logSearch.getEndTime()));
     }
     
     @Test
@@ -93,9 +93,9 @@ class LogReaderControllerTest extends ControllerBaseTest {
                 .andExpect(content().json(toJson(Collections.singletonList(logResponse))));
         
         LogSearch logSearch = logSearchArgumentCaptor.getValue();
-        assertEquals(LogType.INFO, logSearch.getType());
-        assertEquals(DateFormatter.convertToDate(startDateStr), logSearch.getStartTime());
-        assertEquals(DateFormatter.convertToDate(endDateStr), Optional.of(logSearch.getEndTime()));
+        assertEquals(Optional.of(LogType.INFO), logSearch.getType());
+        assertEquals(DateFormatter.convertToDate(Optional.of(startDateStr)), logSearch.getStartTime());
+        assertEquals(DateFormatter.convertToDate(Optional.of(endDateStr)), Optional.of(logSearch.getEndTime()));
     }
     
     @Test
