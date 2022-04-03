@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 class LogFileParseUtilsTest {
     
     private final String normalLogStr =
-            "2022-04-02 18:01:30.253 INFO 49751 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms";
+            "2022-04-02 18:01:30.253 [Test worker] INFO o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms";
     private final String otherLogStr =
             "org.springframework.dao.DataAccessResourceFailureException: Unable to acquire JDBC Connection; nested exception is org.hibernate.exception.JDBCConnectionException:";
     
@@ -61,7 +61,7 @@ class LogFileParseUtilsTest {
     void should_can_parse_content_given_log_line_contains_colon() {
         String message = LogFileParseUtils.extractMessage(normalLogStr);
         
-        assertEquals("Completed initialization in 1 ms", message);
+        assertEquals("o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms", message);
     }
     
     @Test

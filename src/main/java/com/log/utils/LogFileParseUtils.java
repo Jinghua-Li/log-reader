@@ -26,15 +26,15 @@ public class LogFileParseUtils {
     public static Optional<String> extractThreadId(String logStr) {
         final Matcher matcher = Constants.THREAD_PATTERN.matcher(logStr);
         if (matcher.find()) {
-            return Optional.of(matcher.group(0).replace("[", "").replace("]", "").trim());
+            return Optional.of(matcher.group(1).trim());
         }
         return Optional.empty();
     }
     
     public static String extractMessage(String logStr) {
-        final String[] messages = logStr.split(":");
-        if (messages.length > 0) {
-            return messages[messages.length - 1].trim();
+        final Matcher matcher = Constants.TYPE_PATTERN.matcher(logStr);
+        if (matcher.find()) {
+            return logStr.substring(matcher.end()).trim();
         }
         return logStr.trim();
     }

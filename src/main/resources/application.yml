@@ -6,3 +6,6 @@ server:
 spring:
   application:
     name: log-reader
+
+file:
+  location: "classpath:log.txt"
