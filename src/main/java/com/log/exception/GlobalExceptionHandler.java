@@ -3,7 +3,6 @@ package com.log.exception;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.log.resourse.ResponseEntity;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
